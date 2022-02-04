@@ -702,3 +702,6 @@ tags
 [._]*.un~
 
 # End of https://www.toptal.com/developers/gitignore/api/vim,lua,tex,latex,macos,python
+
+## Personal ##
+/output

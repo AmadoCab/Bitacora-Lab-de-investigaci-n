@@ -12,7 +12,20 @@ env = Environment(loader=file_loader,
 
 template = env.get_template('main.tex')
 
-for var in ['Logs/astro','Logs/epidemiologia','Logs/machinelearning','Logs/profesores']:
-    output = template.render(filename=f'\\input{var}')
-    print(output)
+
+run('git pull', shell=True)
+for var in ['astro','epidemiologia','machinelearning','profesores']:
+    output = template.render(filename='\\input{Logs/' + var + '}')
+    tex_name = f'output/{var}_complete.tex'
+    with open(tex_name,'w') as tex_file:
+        tex_file.write(output)
+    run(f'pdflatex -shell-escape {tex_name}',shell=True)
+    run(f'mv {var}_complete.pdf output/', shell=True)
+    run(f'rm {tex_name}',shell=True)
+run('rm *.log', shell=True)
+run('rm *.aux', shell=True)
+run('open output/', shell=True)
+run('git add .', shell=True)
+run('git commit -m "autocommit"', shell=True)
+run('git push', shell=True)
 
