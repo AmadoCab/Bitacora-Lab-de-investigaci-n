@@ -1,0 +1,97 @@
+\makeatletter
+%% HomeWork stuff %%
+\def\HWl@course{Proyecto:\space}
+\def\HWl@professor{Asesor:\space}
+
+%% Constants %%
+\newlength{\LB@sep}
+\setlength{\LB@sep}{8pt}
+\def\LBlsummary{Resumen de la semana}
+\def\LBltodo{Cosas por hacer}
+\def\LBlimportant{Puntos importantes}
+
+%% Tcolorbox stuff %%
+\tcbset{LBentry/.style={
+    enhanced, breakable,
+    fonttitle={\Large\bfseries\color{black}\hspace{-\LB@sep}},
+    bottomtitle=5\p@,
+    left=\LB@sep, right=\LB@sep,
+    boxsep=\z@,
+    colframe=white,
+    frame hidden,
+    colback=white,
+    sidebyside,
+    lefthand width=0.25\textwidth,
+    sidebyside align=top,
+    sidebyside gap=7mm,
+    subtitle style={
+        fontupper={\large\bfseries\color{black}\hspace{-0.5\LB@sep}},
+        bottom=0\p@,
+    },
+    segmentation style={
+        draw=black, solid
+    }
+}}
+\newtcolorbox{LBentry}[2][]{LBentry,title={#2},#1}
+
+%% Automate by LaTeX %%
+% Auxiliary stuff %
+% LB undefined and delim
+%\def\LB@undef _and_ \def\LB@delim
+\def\LB@itemParse#1|#2\LB@delim{
+    \ifx\LB@undef#2\LB@undef
+        {#1}
+    \else
+        {#1
+        \item\LB@itemParse#2\LB@delim}
+    \fi
+}
+
+% Environment %
+\newenvironment{entry}[2][]%
+    {\begin{LBentry}[#1]{#2}}%
+    {\end{LBentry}}
+
+\setlist[itemize,1]{leftmargin=8pt}
+\setlist[itemize,2]{leftmargin=8pt}
+\setlist[itemize,3]{leftmargin=8pt}
+\setlist[itemize,4]{leftmargin=8pt}
+
+
+%%% WARNING %%%
+% Pido perdón por haber escrito este código horrendo e disfuncional, si se ve capaz de arreglarlo es libre de intentar. 
+%
+% Compile with LuaLaTeX
+% \usepackage{environ}
+\iffalse
+\NewEnviron{entryO}[2][]%
+    {
+    %lua
+    \directlua{LBimportant = [[]]}
+    \newcommand{\Pidea}[1]{\directlua{LBimportant = LBimportant .. [[##1|]]}}
+    
+    % tricky stuff
+    \def\LB@saveSumm##1\LB@delim%
+        {\global\edef\saveSumm{##1}}%
+    \def\LB@saveTodo##1\LB@delim%
+        {\global\edef\saveTodo{##1}}%
+    \newcommand{\LBsumm}[1]{\LB@saveSumm##1\LB@delim}%
+    \newcommand{\LBtodo}[1]{\LB@saveTodo##1\LB@delim}
+    
+    % Start typesetting
+    \BODY
+    \begin{LBentry}[#1]{#2}
+    \tcbsubtitle{\LBlimportant}
+    \begin{itemize}
+    \item\expandafter\LB@itemParse\directlua{tex.print(LBimportant)}\LB@delim
+    \end{itemize}
+    \tcblower
+    \tcbsubtitle{\LBlsummary}
+    \saveSumm
+    \tcbsubtitle{\LBltodo}
+    \saveTodo
+    \end{LBentry}}
+\fi
+%%%  %%%
+
+\makeatother
