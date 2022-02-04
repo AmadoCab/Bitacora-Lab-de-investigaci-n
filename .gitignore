@@ -705,3 +705,8 @@ tags
 
 ## Personal ##
 /output
+client_secrets.json
+credentials_module.json
+quickstart.py
+settings.yaml
+
