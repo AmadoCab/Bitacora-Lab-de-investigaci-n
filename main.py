@@ -55,6 +55,7 @@ for var in ['astro','epidemiologia','machinelearning','profesores']:
     with open(tex_name,'w') as tex_file:
         tex_file.write(output)
     run(f'pdflatex -shell-escape {tex_name}',shell=True)
+    run(f'pdflatex -shell-escape {tex_name}',shell=True)
     run(f'mv {var}_complete.pdf output/', shell=True)
     #upload_drive(amado, f'output/{var}_complete.pdf', folder_lab)
     update_drive(amado, f'output/{var}_complete.pdf', files_ids[var])
