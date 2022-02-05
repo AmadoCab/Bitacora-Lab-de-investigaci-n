@@ -39,7 +39,7 @@
 \DeclareOption{theorems}{\HW@theoremstrue}
 \DeclareOption{frames}{\HW@framestrue}
 \DeclareOption{code}{\HW@codetrue\HW@framestrue}
-\DeclareOption{tables}{\PassOptionsToPackage{table, xcdraw}{xcolor}}
+\DeclareOption{tables}{\PassOptionsToPackage{table}{xcolor}}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
 \ProcessOptions*\relax
 \LoadClass{article}
