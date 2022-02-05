@@ -49,9 +49,7 @@
 
 % Environment %
 \newenvironment{entry}[2][]%
-    {\phantomsection
-    \addcontentsline{toc}{section}{#2}
-    \begin{LBentry}[#1]{#2}}%
+    {\begin{LBentry}[#1]{#2}}%
     {\end{LBentry}}
 
 \setlist[itemize,1]{leftmargin=8pt}
