@@ -94,4 +94,28 @@
 \fi
 %%%  %%%
 
+\tcbset{LBjupyter/.style={
+    breakable,
+    enhanced,
+    sharp corners,
+    boxrule=0.6\p@,
+    left=2\p@, right=2\p@,
+    top=2\p@, bottom=2\p@,
+    left skip=27.5\p@,
+}}
+\newtcblisting{jupyter}[2][]{
+    LBjupyter,
+    overlay unbroken and first={
+        \draw node at ([yshift=-1.1em,xshift=-1.3em]frame.north west) [gray,scale=1.1] {\ttfamily [#2]:};
+    },
+    overlay middle and last={},
+    listing only,
+    listing engine=minted,
+    minted language={python},
+    minted options={
+        breaklines,
+        breakanywhere,#1
+    },
+}
+
 \makeatother

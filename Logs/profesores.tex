@@ -7,9 +7,9 @@
 \begin{entry}{4 de febrero}
 \tcbsubtitle{\LBlimportant}
 \begin{itemize}
-    \item Articulo en \href{https://medium.com/codex/principal-component-analysis-pca-how-it-works-mathematically-d5de4c7138e6}{Medium} sobre \textit{PCA}.
+    \item Artículo en \href{https://medium.com/codex/principal-component-analysis-pca-how-it-works-mathematically-d5de4c7138e6}{Medium} sobre \textit{PCA}.
     
-    \item Articulo de \href{https://towardsdatascience.com/understanding-pca-fae3e243731d}{Towards datascience}, \textit{Understanding PCA}.
+    \item Artículo de \href{https://towardsdatascience.com/understanding-pca-fae3e243731d}{Towards datascience}, \textit{Understanding PCA}.
 \end{itemize}
 \tcblower
 \tcbsubtitle{\LBlsummary}
@@ -23,4 +23,56 @@ El \textit{PCA}, consiste en reducir la dimensión de los vectores de datos que 
 
 \part{Notas adicionales}
 \section{Matemáticas de \textit{PCA}}\label{PCAmath}
-En esta sección trataré de 
+En esta sección trataré de hacer una comparación paso a paso del procedimiento manual para hacer \textit{PCA} y como hacerlo de manera automatizada con Python (Todo el procedimiento y código está basado en el artículo original de Medium, ver en la entrada correspondiente al 4 de febrero).
+\subsection{Pasos preliminares}
+Para trabajar con Python ejecutar estos comandos
+\begin{jupyter}{1}
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.decomposition import PCA
+\end{jupyter}
+Considerese el \textit{dataset} siguiente, con 2 columnas (\textit{features}) y 6 filas.
+\begin{table}[H]
+\centering
+\begin{tabular}{cc}
+\sffamily X & \sffamily Y \\ 
+\hline
+\rowcolor[HTML]{EFEFEF} 
+2 & 3 \\
+4 & 5 \\
+\rowcolor[HTML]{EFEFEF} 
+6 & 5 \\
+6 & 7 \\
+\rowcolor[HTML]{EFEFEF} 
+7 & 8 \\
+5 & 8
+\end{tabular}
+\caption{\textit{dataset}}\label{datasetMath}
+\end{table}
+Notese que los pares $(2,3)$, $(4,5)$, $(6,5)$, $(6,7)$, $(7,8)$, $(5,8)$ son llamados \textit{feature vectors}.\\
+
+Estos datos se introducirán a Python con
+\begin{jupyter}{2}
+data = np.array([[2,3],[4,5],[6,5],[6,7],[7,8],[5,8]])
+df = pd.DataFrame(data=data, columns=['X', 'Y'])
+df
+\end{jupyter}
+que nos devolverá la misma tabla \ref{datasetMath}.
+
+\subsection{Normalizar datos}
+\begin{minipage}[t]{0.48\textwidth}
+Calculamos la media de los datos
+\[ \overline{\mathsf{X}}=5 \qquad \overline{\mathsf{Y}}=6, \]
+la desviación estándar
+\[ S_{\mathsf{X}}=. \qquad S_{\mathsf{Y}}=., \]
+\end{minipage}
+\hfill\vrule\hfill
+\begin{minipage}[t]{0.48\textwidth}
+\begin{jupyter}{3}
+from scipy.stats import zscore
+df_scaled = df.apply(zscore)
+print("Scaled Data:")
+df_scaled
+\end{jupyter}
+\end{minipage}
