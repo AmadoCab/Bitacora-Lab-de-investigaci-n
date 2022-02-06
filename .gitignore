@@ -709,4 +709,8 @@ client_secrets.json
 credentials_module.json
 quickstart.py
 settings.yaml
+!/media/astro/*.pdf
+!/media/epidemiologia/*.pdf
+!/media/machinelearning/*.pdf
+!/media/profesores/*.pdf
 
