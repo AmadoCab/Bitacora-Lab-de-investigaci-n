@@ -30,6 +30,7 @@ env = Environment(loader=file_loader,
 )
 
 template = env.get_template('main.tex')
+##
 
 # Pydrive2 #
 credentials_route = 'credentials_module.json'
@@ -47,24 +48,18 @@ if gauth.access_token_expired:
 else:
     gauth.Authorize()
 amado = GoogleDrive(gauth)
+##
 
+# Main execution #
 run('git pull', shell=True)
 for var in ['astro','epidemiologia','machinelearning','profesores']:
-    output = template.render(filename='\\input{Logs/' + var + '}')
-    tex_name = f'output/{var}_complete.tex'
-    with open(tex_name,'w') as tex_file:
+    output = template.render(filename='\\input{../Logs/' + var + '}')
+    tex_name = f'{var}_complete'
+    with open(f'output/{tex_name}.tex','w') as tex_file:
         tex_file.write(output)
-    run(f'pdflatex -shell-escape {tex_name}',shell=True)
-    run(f'pdflatex -shell-escape {tex_name}',shell=True)
-    run(f'mv {var}_complete.pdf output/', shell=True)
-    #upload_drive(amado, f'output/{var}_complete.pdf', folder_lab)
-    update_drive(amado, f'output/{var}_complete.pdf', files_ids[var])
-    run(f'rm {tex_name}',shell=True)
-run('rm *.log', shell=True)
-run('rm *.aux', shell=True)
-run('open output/', shell=True)
-run('git add .', shell=True)
-run('git commit -m "autocommit"', shell=True)
-run('git push', shell=True)
+    run(f'. main.sh && Lcompile {tex_name}.tex',shell=True)
+    #upload_drive(amado, f'output/{tex_name}.pdf', folder_lab)
+    update_drive(amado, f'output/{tex_name}.pdf', files_ids[var])
+run('. main.sh && updateG', shell=True)
 
 
