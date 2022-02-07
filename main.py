@@ -53,7 +53,7 @@ amado = GoogleDrive(gauth)
 # Main execution #
 run('git pull', shell=True)
 for var in ['astro','epidemiologia','machinelearning','profesores']:
-    output = template.render(filename='\\input{../Logs/' + var + '}',Gpath='\\graphicspath{{..}}')
+    output = template.render(filename='\\input{../Logs/' + var + '}')
     tex_name = f'{var}_complete'
     print(output)
     input()
