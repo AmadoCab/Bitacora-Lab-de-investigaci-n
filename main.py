@@ -55,6 +55,8 @@ run('git pull', shell=True)
 for var in ['astro','epidemiologia','machinelearning','profesores']:
     output = template.render(filename='\\input{../Logs/' + var + '}',Gpath='\\graphicspath{{..}}')
     tex_name = f'{var}_complete'
+    print(output)
+    input()
     with open(f'output/{tex_name}.tex','w') as tex_file:
         tex_file.write(output)
     run(f'. main.sh && Lcompile {tex_name}.tex',shell=True)
