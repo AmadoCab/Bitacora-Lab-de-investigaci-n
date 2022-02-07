@@ -25,8 +25,8 @@ file_loader = FileSystemLoader('.')
 env = Environment(loader=file_loader,
     comment_start_string = '{{',
     comment_end_string = '}}',
-    variable_start_string = '{|',
-    variable_end_string = '|}'
+    variable_start_string = '%>',
+    variable_end_string = '<%'
 )
 
 template = env.get_template('main.tex')
@@ -53,7 +53,7 @@ amado = GoogleDrive(gauth)
 # Main execution #
 run('git pull', shell=True)
 for var in ['astro','epidemiologia','machinelearning','profesores']:
-    output = template.render(filename='\\input{../Logs/' + var + '}')
+    output = template.render(filename='\\input{../Logs/' + var + '}',Gpath='\\graphicspath{{..}}')
     tex_name = f'{var}_complete'
     with open(f'output/{tex_name}.tex','w') as tex_file:
         tex_file.write(output)
