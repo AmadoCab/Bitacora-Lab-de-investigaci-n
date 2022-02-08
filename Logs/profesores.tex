@@ -8,22 +8,58 @@
 \tcbsubtitle{\LBlimportant}
 \begin{itemize}
     \item Artículo en \href{https://medium.com/codex/principal-component-analysis-pca-how-it-works-mathematically-d5de4c7138e6}{Medium} sobre \textit{PCA}.
+    \begin{itemize}
+        \item Procedimiento matemático
+        \item Procedimiento programático
+    \end{itemize}
     
     \item Artículo de \href{https://towardsdatascience.com/understanding-pca-fae3e243731d}{Towards datascience}, \textit{Understanding PCA}.
+    \begin{itemize}
+        \item Importancia de \textit{PCA}
+        \item Conjunto ideal
+        \item Pérdida de sentido
+    \end{itemize}
 \end{itemize}
 \tcblower
 \tcbsubtitle{\LBlsummary}
-El \textit{PCA}, consiste en reducir la dimensión de los vectores de datos que tenemos en nuestro modelo. Esto se consigue calculando el producto punto de cada vector de dato con los \textit{Eigen vectors} de la matriz de covarianza de los datos estandarizados. Matemática desarrollada en \ref{PCAmath}.
-\vspace{0.4em}
+Con el artículo de Medium conseguí entender como es el funcionamiento matemático de \textit{PCA}. Este consiste en reducir la dimensión de los vectores de datos que tenemos en nuestro modelo. Esto se consigue calculando el producto punto de cada vector de dato con los \textit{Eigen vectors} de la matriz de covarianza de los datos estandarizados. El procedimiento matemático y programático se encuentra mejor desarrollado en la sección \ref{PCAmath}, parte \ref{Notas}.\\
+
+En el artículo de Towards datascience explican que la importancia detrás de la reducción dimensional radica en evitar el \textit{overfitting} en nuestro modelo cuando la cantidad de \textit{features} es muy grande relativo a la cantidad de \textit{samples}. Además de eso nos describieron como es el conjunto ideal de \textit{features}
+\begin{itemize}
+    \item Con alta varianza
+    \item Poca correlacionadas
+    \item No muchas
+\end{itemize}
+Sin embargo los ejemplos dados en ese artículo (\textit{100 Days of Stock Returns for 30 Different Stocks}) no me parecen muy triviales, pero creo que la manera de verlo correctamente sería graficando la rentavilidad de cada día como un eje (\textit{feature}) y cada empresa sería un vector en la gráfica (\textit{sample}). Así que el \textit{PCA} combinaría distintas rentabilidades.\\
+
+Un contra del \textit{PCA} es que perdemos certeza de que significan las \textit{feature}.
+%\vspace{0.4em}
 \tcbsubtitle{\LBltodo}\vspace{-1.25em}
 \begin{itemize}
     \item ¿Que son los estimadores de varianza/desviación estándar, \textbf{sesgados} y \textbf{no sesgados}?
+    
+    \item ¿Es correcta mi interpretación del ejemplo en el artículo de Towards datascience?
+    \end{itemize}
+\end{entry}
+
+\begin{entry}{2 de febrero}
+\tcbsubtitle{\LBlimportant}
+\begin{itemize}
+    \item Video de YouTube de \href{https://www.youtube.com/watch?v=HMOI_lkzW08}{StatQuest}
+\end{itemize}
+\tcblower
+\tcbsubtitle{\LBlsummary}
+...
+\vspace{0.4em}
+\tcbsubtitle{\LBltodo}
+\begin{itemize}
+    \item ¿Posible confusión entre \textit{features} y \textit{samples} en el video de StatQuest?
 \end{itemize}
 \end{entry}
 
 \newpage
 
-\part{Notas adicionales}
+\part{Notas adicionales} \label{Notas}
 \section{Matemáticas de \textit{PCA}}\label{PCAmath}
 En esta sección trataré de hacer una comparación paso a paso y lado a lado del procedimiento manual para hacer \textit{PCA} y como hacerlo de manera automatizada con Python (Todo el procedimiento y código está basado en el artículo original de Medium, ver en la entrada correspondiente al 4 de febrero).
 \subsection{Pasos preliminares}
@@ -50,7 +86,7 @@ Considerese el \textit{dataset} siguiente, con 2 columnas (\textit{features}) y 
 7 & 8 \\
 5 & 8
 \end{tabular}
-\caption{\textit{dataset}}\label{datasetMath}
+\caption{\textit{dataset}}\label{tab:PCAmath-dataset}
 \end{table}
 Notese que los pares $(2,3)$, $(4,5)$, $(6,5)$, $(6,7)$, $(7,8)$, $(5,8)$ son llamados \textit{feature vectors}.\\
 
@@ -60,7 +96,7 @@ data = np.array([[2,3],[4,5],[6,5],[6,7],[7,8],[5,8]])
 df = pd.DataFrame(data=data, columns=['X', 'Y'])
 df
 \end{jupyter}
-que nos devolverá la misma tabla \ref{datasetMath}.
+que nos devolverá la misma tabla \ref{tab:PCAmath-dataset}.
 
 \subsection{Normalizar datos}
 \begin{minipage}[c]{0.48\textwidth}
@@ -98,7 +134,7 @@ $1.225$ & $1.095$   \\
 $0$     & $1.095$
 \end{tabular}
 \caption{Salida estandarizada (mismo resultado en ambas aproximando a 3 decimales)}
-\label{tab:standarized}
+\label{tab:PCAmath-standarized}
 \end{table}
 
 \subsection{Matriz de covarianza}
@@ -126,7 +162,7 @@ print(cov)
 \end{minipage}\\
 ambos con la misma salida.
 
-\subsection{\textit{Eigen values} y \textit{eigen vectors}}\label{eigen}
+\subsection{\textit{Eigen values} y \textit{eigen vectors}}\label{PCAmath-eigen}
 En Python el cálculo de los \textit{Eigen vectors} y \textit{Eigen values} es hecho manualmente por la clase \texttt{PCA} de \mintinline{python}{sklearn.decomposition}, por lo tanto para visualizarlos en nuestro notebook crearemos una instancia de \texttt{PCA} manteniendo la cantidad de \textit{features} de los datos previos al \textit{PCA}.
 \begin{jupyter}{5}
 pca = PCA(n_components=2)
@@ -194,7 +230,7 @@ plt.show()
 \end{center}
 
 \subsection{Proyectar los datos a una sola dimensión}
-Como se dijo en el paso \ref{eigen}, Python hace todos los cálculos por nosotros, entonces ahora haremos una nueva instancia de la clase \texttt{PCA}, pero (a diferencia de antes) con solo una componente final.\\[0.75em]
+Como se dijo en el paso \ref{PCAmath-eigen}, Python hace todos los cálculos por nosotros, entonces ahora haremos una nueva instancia de la clase \texttt{PCA}, pero (a diferencia de antes) con solo una componente final.\\[0.75em]
 \begin{minipage}[c]{0.48\textwidth}
 Ahora vamos a realizar el producto punto entre el \textit{eigen vector} con \textit{eigen value} más grande y cada \textit{feauture vector} de los datos estandarizados.\\
 
@@ -226,7 +262,6 @@ $0.820$ \\
 $1.640$ \\
 $0.774$
 \end{tabular}
-\caption{Datos proyectados}
-\label{tab:projected}
+\caption{Datos proyectados}\label{tab:PCAmath-projected}
 \end{table}
 Cabe decir que en los últimos dos pasos los signos de los resultados están invertidos, esto no produce ningún cambio. Y con eso acabamos todos los calculos relativos a \textit{PCA}.
