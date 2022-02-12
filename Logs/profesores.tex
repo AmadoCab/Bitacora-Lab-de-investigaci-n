@@ -4,6 +4,7 @@
 \maketitle
 
 \part{Bitácora}
+%%_2 de febrero_%%
 \begin{entry}{2 de febrero}
 \tcbsubtitle{\LBlimportant}
 \begin{itemize}
@@ -70,6 +71,42 @@ El artículo de Javatpoint lo pude leer con más calma, pues siento que allí pu
 \tcbsubtitle{\LBltodo}\vspace{-1.25em}
 \begin{itemize}
     \item ¿Posible confusión entre \textit{features} y \textit{samples} en el video corto de StatQuest?
+\end{itemize}
+\end{entry}
+
+%%_9 de febrero_%%
+\begin{entry}{9 de febrero}
+\tcbsubtitle{\LBlimportant}
+\begin{itemize}
+    \item \textit{PCA} aplicado al \textit{dataset} de \href{https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_wine.html}{\textit{Wine recognition}}
+\end{itemize}
+\tcblower
+\tcbsubtitle{\LBlsummary}
+Aunque técnicamente trabajé el \textit{dataset} la semana del 2 de febrero, aproveché que la semana pasada la pasé casi en su totalidad leyendo para separarlo así.\\
+
+El estudio de la base de de datos de vino no trajo consigo resultados satisfactorios, quería ver si era posible distinguir los tipos de vino utilizando la reducción dimensional de \textit{PCA} a 2 dimensiones, sin embargo la poca cantidad de varianza representada ($55.41\%$) hace imposible hacer una distinción suficientemente clara. Para tratar de tener una visualización más clara (solo por diversión) programé una visualización en 3D, pero lamentablemente su cantidad de varianza sigue siendo muy baja ($66.53\%$).\\
+
+Se puede ver tódo el código en ...
+\vspace{0.4em}
+\tcbsubtitle{\LBltodo}\vspace{-1.25em}
+\begin{itemize}
+    \item ¿Cuánta varianza es óptima para \textbf{visualización}?
+    \item Buscar más \textit{datasets} en los que se vea bien \textit{PCA}.
+\end{itemize}
+\end{entry}
+
+\begin{entry}{9 de febrero}
+\tcbsubtitle{\LBlimportant}
+\begin{itemize}
+    \item Mi propia implementación de \textit{PCA} (\texttt{MyPCA.py}).
+\end{itemize}
+\tcblower
+\tcbsubtitle{\LBlsummary}
+Hice la implementación de \textit{PCA} revisando al mismo tiempo cosas de la sección \ref{PCAmath} de este documento, como leyendo el artículo de Javatpoint. Realicé la implementación con \textit{OOP} y luego la probé en Jupyter Lab contra el \textit{PCA} de \texttt{sklearn}.
+\vspace{0.4em}
+\tcbsubtitle{\LBltodo}\vspace{-1.25em}
+\begin{itemize}
+    \item Tengo que documentar al menos un poco \texttt{MyPCA.py} solo para que sea medianamente legible.
 \end{itemize}
 \end{entry}
 
