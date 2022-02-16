@@ -10,6 +10,12 @@
 \begin{itemize}
     \item ¿Qué es \textit{Machine learning}?
     \item ¿Por qué usar \textit{Machine learning}?
+    \item ¿Tipos de sistemas de \textit{Machine learning}?
+    \begin{itemize}
+        \item Aprendizaje supervisado/no supervisado.
+        \item Aprendizaje en lote y en línea.
+        \item Aprendizaje basado en instancias o en modelos.
+    \end{itemize}
 \end{itemize}
 \tcblower
 \tcbsubtitle{\LBlsummary}
@@ -22,9 +28,66 @@
     \item Entornos fluctuantes donde es necesario adaptarse a los nuevos datos (filtro de \textit{spam}).
     \item Obtener información sobre problemas complejos y grandes cantidades de datos (\textit{data mining}).
 \end{itemize}
+Los tipos de \textit{Machine learning} que se pueden implementar se dividien principalmente en 3.
+\begin{itemize}
+    \item Si son supervisados por personas o no.
+    \item Si pueden mantenerse aprendiendo mientras corren.
+    \item Si funcionan comparando los nuevos puntos de datos con los puntos de datos conocidos, o si detectan patrones en los datos de entrenamiento y construyen un modelo predictivo.
+\end{itemize}
+Estos criterios no son excluyentes (ni absolutos entiendo yo).
 \vspace{0.4em}
 \tcbsubtitle{\LBltodo}\vspace{-1.25em}
 \begin{itemize}
-    \item 
+    \item Investigar más ejemplos de \textit{Machine learning} para identificar las razones que mueven a esos ejemplos, además de la manera en la que se implementan.
+\end{itemize}
+\end{entry}
+
+\begin{entry}{9 de febrero}
+\tcbsubtitle{\LBlimportant}
+\begin{itemize}
+    \item Principales retos del \textit{Machine learning}.
+    \begin{itemize}
+        \item Malos datos.
+        \begin{itemize}
+            \item Cantidad de datos de entrenamiento insuficientes.
+            \item Datos de entrenamiento no representativos.
+            \item Datos de mala calidad.
+            \item Características irrelevantes.
+        \end{itemize}
+        \item Malos algoritmos.
+        \begin{itemize}
+            \item \textit{Overfitting}.
+            \item \textit{Underfitting}.
+        \end{itemize}
+    \end{itemize}
+    \item Probando y validando.
+\end{itemize}
+\tcblower
+\tcbsubtitle{\LBlsummary}
+Ya que hacer \textit{Machine Learning} se trata de que cierto algoritmo, aprenda ciertos datos. Las unicas cosas que pueden fallar son, «malos algoritmos» o «malos datos».
+\begin{itemize}
+    \item\textsl{Cantidad de datos de entrenamiento insuficientes}\\
+    Si no tenemos una cantidad de datos suficientemente grande, el modelo no será capaz de generalizar los ejemplos que le han sido dados.
+    
+    \item\textsl{Datos de entrenamiento no representativos}\\
+    Para que un fenómeno sea generalizable por un modelo de \textit{Machine Learning} además de la cantidad de datos, es necesario que ese conjunto de datos sea representativo. De otro modo solo estaremos representando un subconjunto de los datos.
+    
+    \item\textsl{Datos de mala calidad}\\
+    Si el conjunto de datos con los que se está entrenando a un modelo está lleno de errores o discrepancias significativas, será más difícil para el modelo encontrar patrones, por lo que no funcionará tan bien.
+    
+    \item\textsl{Características irrelevantes}\\
+    Si el modelo no tiene características suficientemente relevantes de nuestros datos, ya que el modelo no será capaz de aprender nada útil.
+    
+    \item\textsl{Overfitting}\\
+    Generalizar en exceso los datos de entrenamiento. Esto hace que no solo modelemos las características subyacentes de nuestros datos, si no también el ruido que estos puedan tener.
+    
+    \item\textsl{Underfitting}\\
+    Al contrario del caso anterior no se generalizan suficiente los datos de entrenamiento, cosa que resulta igualmente en predicciones erradas.
+\end{itemize}
+La única manera de saber que tan bien generaliza un modelo es usándolo en nuevos casos. Una manera de hacer esto seria, mandar el modelo a producción y ver que tal funciona, sin embargo si el modelo es muy malo, los usuarios se quejaran. una manera de abordar este problema es dividiendo el conjunto de datos en dos, el de entrenamiento, y el de prueba. Sin embargo esto sigue sin ser lo óptimo pues al solo utilizar un conjunto de datos para probar puede que estés ajustando el modelo para que funcione en esa situación particularmente. Para evitar esa se retiene parte del conjunto de entrenamiento que se usa para validar los resultados de entrenar solo con el resto de los datos, y cuando ya queremos evaluar que tal funciona nuestro modelo entrenamos con todo el conjunto, esto también tiene inconvenientes. Una forma de resolver este problema es realizar una validación cruzada repetida, utilizando muchos conjuntos de validación pequeños. Cada modelo se evalúa una vez por conjunto de validación, después de haber sido entrenado en el resto de los datos. Al promediar todas las evaluaciones de un modelo, obtenemos una medida mucho más precisa de su rendimiento. Sin embargo, hay un inconveniente: el tiempo de entrenamiento se multiplica por el número de conjuntos de validación.
+\vspace{0.4em}
+\tcbsubtitle{\LBltodo}\vspace{-1.25em}
+\begin{itemize}
+    \item ¿Cuál es la relación entre \textit{Overfitting} y muchas \textit{features} para pocas \textit{samples}?
 \end{itemize}
 \end{entry}
